@@ -1,0 +1,73 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+.bower_components/
+
+# Environment files
+.env
+.env.*.local
+
+# Build directories
+/build/
+dist/
+.DS_Store
+
+# OS-specific files
+Thumbs.db
+*.DS_Store
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# React/Frontend-specific files
+/.next/
+/out/
+*.cache
+public/static/
+public/assets/
+coverage/
+build/
+
+# MongoDB database files (local development)
+data/
+*.lock
+
+# Debugging and profiler files
+*.pid
+*.seed
+*.prof
+*.tmp
+
+# SASS cache
+.sass-cache/
+
+# Ignore generated files by Babel or TypeScript
+*.tsbuildinfo
+/.babelrc.cache.json
+
+# Ignore test-related files
+/coverage/
+.nyc_output/
+jest.cache/
+jest.debug.log
+
+# Ignore miscellaneous
+*.tgz
+*.gz
+*.zip
+
+# Ignore specific packages
+/lerna-debug.log
+npm-shrinkwrap.json
+package-lock.json
+
+# Ignore render or deployment-specific files
+render.yaml
