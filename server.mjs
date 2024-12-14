@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import usersRouter from "./routes/users.js";
+import usersRouter from "./routes/users.mjs";
 const PORT = 3000;
 
 // ミドルウェアの設定
