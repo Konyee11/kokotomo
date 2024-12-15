@@ -52,4 +52,37 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+// ユーザーのフォロー
+router.put("/:id/follow", async (req, res) => {
+    try {
+        if (req.body.userId !== req.params.id) {
+            // フォローするユーザーが自分自身でない場合
+            const user = await User.findById(req.params.id); // フォローされるユーザー
+            const currentUser = await User.findById(req.body.userId); // フォローするユーザー
+            if (!user.followers.includes(currentUser._id)) {
+                // フォローするユーザーがすでにフォローしていない場合
+                await user.updateOne({
+                    $push: { followers: currentUser._id },
+                });
+                await currentUser.updateOne({
+                    $push: { followings: user._id },
+                });
+                return res.status(200).json("ユーザーをフォローしました");
+            } else {
+                // フォローするユーザーがすでにフォローしている場合
+                return res
+                    .status(403)
+                    .json("すでにユーザーをフォローしています");
+            }
+        } else {
+            // フォローするユーザーが自分自身の場合
+            return res
+                .status(403)
+                .json("自分自身をフォローすることはできません");
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;
