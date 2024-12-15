@@ -30,4 +30,19 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+// 投稿の削除
+router.delete("/:id", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (post.userId === req.body.userId) {
+            await post.deleteOne();
+            return res.status(200).json("投稿が削除されました");
+        } else {
+            return res.status(403).json("投稿者のみ削除可能です");
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;
