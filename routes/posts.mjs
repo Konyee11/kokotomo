@@ -2,6 +2,16 @@ import { Router } from "express";
 const router = Router();
 import Post from "../models/post.mjs";
 
+// 特定の投稿の取得
+router.get("/:id", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        res.status(200).json(post);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // 投稿の作成
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);
