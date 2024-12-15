@@ -17,4 +17,17 @@ router.post("/register", async (req, res) => {
     }
 });
 
+// ユーザーのログイン
+router.post("/login", async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        !user && res.status(404).json("ユーザーが見つかりません");
+        const validPassword = user.password === req.body.password;
+        !validPassword && res.status(400).json("パスワードが間違っています");
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;
