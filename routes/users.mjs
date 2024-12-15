@@ -3,6 +3,17 @@ const router = Router();
 import User from "../models/user.mjs";
 import bcrypt from "bcryptjs";
 
+// 特定のユーザー情報の取得
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const { password, updatedAt, ...other } = user._doc; // パスワードと更新日時を除外
+        return res.status(200).json(other);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 // ユーザー情報の更新
 router.put("/:id", async (req, res) => {
     try {
