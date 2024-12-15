@@ -15,6 +15,7 @@ mongoose
     .catch((err) => console.log(err));
 
 // ミドルウェアの設定
+app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
