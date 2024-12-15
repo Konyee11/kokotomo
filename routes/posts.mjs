@@ -55,4 +55,30 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+// 投稿のいいね
+router.put("/:id/like", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post.likes.includes(req.body.userId)) {
+            // まだいいねが押されていない場合
+            await post.updateOne({
+                $push: {
+                    likes: req.body.userId,
+                },
+            });
+            return res.status(200).json("いいねしました");
+        } else {
+            // すでにいいねが押されている場合
+            await post.updateOne({
+                $pull: {
+                    likes: req.body.userId,
+                },
+            });
+            return res.status(200).json("いいねを取り消しました");
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;
