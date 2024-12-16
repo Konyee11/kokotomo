@@ -1,6 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import Post from "../models/post.mjs";
+import User from "../models/user.mjs";
 
 // 特定の投稿の取得
 router.get("/:id", async (req, res) => {
@@ -76,6 +77,23 @@ router.put("/:id/like", async (req, res) => {
             });
             return res.status(200).json("いいねを取り消しました");
         }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// タイムラインの投稿を取得
+router.get("/timeline/all", async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.body.userId);
+        const userPosts = await Post.find({ userId: currentUser._id });
+        // フォローしているユーザーの投稿を取得
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId) => {
+                return Post.find({ userId: friendId });
+            })
+        );
+        return res.status(200).json(userPosts.concat(...friendPosts));
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
