@@ -50,7 +50,70 @@ export default function Rightbar({ profile }) {
     };
 
     const ProfileRightbar = () => {
-        return <>profileのrightbarです</>;
+        return (
+            <>
+                <h4 className="rightbar__title">ユーザー情報</h4>
+                <div className="rightbar__info">
+                    <div className="rightbar__info__item">
+                        <span className="rightbar__info__key">出身地:</span>
+                        <span className="rightbar__info__value">東京</span>
+                    </div>
+                    <h4 className="rightbar__title">あなたの友達</h4>
+                    <div className="rightbar__followings">
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
     };
 
     return (
