@@ -1,6 +1,7 @@
 import "./Post.scss";
 import { MoreVert } from "@mui/icons-material";
 import { Users } from "../../dummyData";
+import PropTypes from "prop-types";
 
 export default function Post({ post }) {
     const user = Users.filter((user) => user.id === post.userId);
@@ -49,3 +50,16 @@ export default function Post({ post }) {
         </div>
     );
 }
+
+// PropTypesを使用して型を定義
+Post.propTypes = {
+    post: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        desc: PropTypes.string,
+        photo: PropTypes.string,
+        date: PropTypes.string,
+        userId: PropTypes.number.isRequired,
+        like: PropTypes.number,
+        comment: PropTypes.number,
+    }).isRequired,
+};
