@@ -1,7 +1,7 @@
 @use "../../styles/variables.scss" as *;
 
 .sidebar {
-    width: 300px;
+    width: $sidebar-width;
     height: 100vh;
     position: fixed;
     overflow-y: scroll;

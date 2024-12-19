@@ -1,11 +1,12 @@
 import "./Rightbar.scss";
 import Online from "../online/Online";
 import { Users } from "../../dummyData";
+import PropTypes from "prop-types";
 
-export default function Rightbar() {
-    return (
-        <div className="rightbar">
-            <div className="rightbar__wrapper">
+export default function Rightbar({ profile }) {
+    const HomeRightbar = () => {
+        return (
+            <>
                 <div className="event">
                     <img
                         src="./assets/star.png"
@@ -44,7 +45,86 @@ export default function Rightbar() {
                     className="promotion__img"
                 />
                 <p className="promotion__name">株式会社XYZ</p>
+            </>
+        );
+    };
+
+    const ProfileRightbar = () => {
+        return (
+            <>
+                <h4 className="rightbar__title">ユーザー情報</h4>
+                <div className="rightbar__info">
+                    <div className="rightbar__info__item">
+                        <span className="rightbar__info__key">出身地:</span>
+                        <span className="rightbar__info__value">東京</span>
+                    </div>
+                    <h4 className="rightbar__title">あなたの友達</h4>
+                    <div className="rightbar__followings">
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                        <div className="rightbar__following">
+                            <img
+                                src="assets/person/1.png"
+                                alt=""
+                                className="rightbar__following__img"
+                            />
+                            <span className="rightbar__following__name">
+                                Konyee
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    };
+
+    return (
+        <div className="rightbar">
+            <div className="rightbar__wrapper">
+                {profile ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
         </div>
     );
 }
+
+Rightbar.propTypes = {
+    profile: PropTypes.bool,
+};
