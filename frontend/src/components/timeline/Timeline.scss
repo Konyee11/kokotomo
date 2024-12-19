@@ -1,6 +1,7 @@
 .timeline {
     margin-left: 300px;
     flex: 8;
+    overflow-y: scroll;
 
     &__wrapper {
         padding: 20px;
