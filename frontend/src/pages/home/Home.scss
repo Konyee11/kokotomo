@@ -1,0 +1,6 @@
+@use "../../styles/variables.scss" as *;
+
+.homeContainer {
+    display: flex;
+    background-color: $secondary;
+}
