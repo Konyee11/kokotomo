@@ -8,6 +8,9 @@ export default function Timeline() {
             <div className="timeline__wrapper">
                 <Share />
                 <Post />
+                <Post />
+                <Post />
+                <Post />
             </div>
         </div>
     );
