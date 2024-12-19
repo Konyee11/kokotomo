@@ -24,6 +24,36 @@ export const Users = [
         profilePicture: "assets/person/5.jpeg",
         username: "Kikukawa",
     },
+    {
+        id: 6,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
+    {
+        id: 7,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
+    {
+        id: 8,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
+    {
+        id: 9,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
+    {
+        id: 10,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
+    {
+        id: 11,
+        profilePicture: "assets/person/5.jpeg",
+        username: "Kikukawa",
+    },
 ];
 
 export const Posts = [
