@@ -1,8 +1,10 @@
 @use "../../styles/variables.scss" as *;
 
 .sidebar {
-    flex: 2.5;
+    width: 300px;
     height: 100vh;
+    position: fixed;
+    overflow-y: scroll;
 
     &__wrapper {
         padding: 20px;
