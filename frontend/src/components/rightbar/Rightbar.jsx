@@ -43,6 +43,25 @@ export default function Rightbar() {
                         <span className="rightbar__friend__username">John</span>
                     </li>
                 </ul>
+                <p className="promotion">プロモーション広告</p>
+                <img
+                    src="./assets/promotion/promotion1.jpeg"
+                    alt=""
+                    className="promotion__img"
+                />
+                <p className="promotion__name">ショッピング</p>
+                <img
+                    src="./assets/promotion/promotion2.jpeg"
+                    alt=""
+                    className="promotion__img"
+                />
+                <p className="promotion__name">カーショップ</p>
+                <img
+                    src="./assets/promotion/promotion3.jpeg"
+                    alt=""
+                    className="promotion__img"
+                />
+                <p className="promotion__name">株式会社XYZ</p>
             </div>
         </div>
     );
