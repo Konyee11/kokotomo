@@ -1,0 +1,81 @@
+@use "../../styles/variables.scss" as *;
+
+.share {
+    width: 100%;
+    box-shadow: 3px 3px 10px 5px $primary;
+    border-radius: 10px;
+
+    &__wrapper {
+        padding: 10px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+    }
+
+    &__profileimg {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    &__input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: $secondary;
+        color: $neutral;
+    }
+
+    &__hr {
+        margin: 20px;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__options {
+        display: flex;
+        margin-left: 20px;
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        cursor: pointer;
+
+        &__icon {
+            margin-right: 3px;
+        }
+
+        &__text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+
+    &__button {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 10px;
+        background-color: $accent;
+        color: $neutral;
+        cursor: pointer;
+        margin-right: 20px;
+
+        &:hover {
+            background-color: darken($accent, 5%);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
