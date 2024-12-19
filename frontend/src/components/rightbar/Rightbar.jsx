@@ -24,7 +24,6 @@ export default function Rightbar({ profile }) {
                     {Users.map((user) => (
                         <Online key={user.id} user={user} />
                     ))}
-                    ;
                 </ul>
                 <p className="promotion">プロモーション広告</p>
                 <img
