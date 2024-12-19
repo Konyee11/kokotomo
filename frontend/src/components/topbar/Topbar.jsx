@@ -28,7 +28,7 @@ export default function Topbar() {
                         <span className="topbar__iconBadge">2</span>
                     </div>
                     <img
-                        src="/assets/person/1.png"
+                        src="./assets/person/1.png"
                         alt="User"
                         className="topbar__profileImg"
                     />

@@ -7,7 +7,7 @@ export default function Share() {
             <div className="share__wrapper">
                 <div className="share__top">
                     <img
-                        src="/public/assets/person/1.png"
+                        src="./assets/person/1.png"
                         alt=""
                         className="share__profileimg"
                     />

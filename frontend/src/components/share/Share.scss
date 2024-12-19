@@ -70,9 +70,10 @@
         color: $neutral;
         cursor: pointer;
         margin-right: 20px;
+        transition: background-color 0.3s;
 
         &:hover {
-            background-color: darken($accent, 5%);
+            background-color: $accent-hover;
         }
 
         &:active {
