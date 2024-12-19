@@ -8,8 +8,12 @@ import {
     Settings,
 } from "@mui/icons-material";
 import "./Sidebar.scss";
+import Friend from "../friend/Friend";
+import { Users } from "../../dummyData";
 
 export default function Sidebar() {
+    console.log(Users);
+
     return (
         <div className="sidebar">
             <div className="sidebar__wrapper">
@@ -45,30 +49,9 @@ export default function Sidebar() {
                 </ul>
                 <hr className="sidebar__hr" />
                 <ul className="sidebar__friendlist">
-                    <li className="sidebar__friend">
-                        <img
-                            src="./assets/person/2.jpeg"
-                            alt=""
-                            className="sidebar__friendimg"
-                        />
-                        <span className="sidebar__friendname">John</span>
-                    </li>
-                    <li className="sidebar__friend">
-                        <img
-                            src="./assets/person/3.jpeg"
-                            alt=""
-                            className="sidebar__friendimg"
-                        />
-                        <span className="sidebar__friendname">Billy</span>
-                    </li>
-                    <li className="sidebar__friend">
-                        <img
-                            src="./assets/person/4.jpeg"
-                            alt=""
-                            className="sidebar__friendimg"
-                        />
-                        <span className="sidebar__friendname">Alis</span>
-                    </li>
+                    {Users.map((user) => (
+                        <Friend key={user.id} user={user} />
+                    ))}
                 </ul>
             </div>
         </div>
