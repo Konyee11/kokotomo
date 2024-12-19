@@ -9,7 +9,7 @@ export default function Topbar() {
             </div>
             <div className="topbar__center">
                 <div className="searchbar">
-                    <Search className="searchbar__icon" />
+                    <Search className="searchbar__icon" htmlColor="black" />
                     <input
                         type="text"
                         className="searchbar__input"
