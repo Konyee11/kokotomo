@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss" as *;
+
 .timeline {
     margin-left: $sidebar-width;
     flex: 8;
