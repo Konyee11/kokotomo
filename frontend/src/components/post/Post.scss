@@ -1,0 +1,81 @@
+@use "../../styles/variables.scss" as *;
+
+.post {
+    width: 100%;
+    box-shadow: 1px 1px 10px 0px $accent;
+    border-radius: 10px;
+    margin: 30px 0;
+    background-color: $secondary;
+
+    &__wrapper {
+        padding: 10px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__left {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__username {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0 10px;
+    }
+
+    &__date {
+        font-size: 12px;
+    }
+
+    &__profileimg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    &__center {
+        margin: 20px 0;
+    }
+
+    &__img {
+        margin-top: 20px;
+        width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+    }
+
+    &__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__left {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__likeIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    &__likeCounter {
+        font-size: 12px;
+    }
+
+    &__commentText {
+        font-size: 12px;
+        border-bottom: 1px solid $neutral;
+        cursor: pointer;
+    }
+}

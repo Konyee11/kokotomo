@@ -51,7 +51,7 @@ export default function Sidebar() {
                             alt=""
                             className="sidebar__friendimg"
                         />
-                        <span className="sidebar__friendname">John Doe</span>
+                        <span className="sidebar__friendname">John</span>
                     </li>
                     <li className="sidebar__friend">
                         <img
@@ -59,7 +59,7 @@ export default function Sidebar() {
                             alt=""
                             className="sidebar__friendimg"
                         />
-                        <span className="sidebar__friendname">B</span>
+                        <span className="sidebar__friendname">Billy</span>
                     </li>
                     <li className="sidebar__friend">
                         <img
@@ -67,7 +67,7 @@ export default function Sidebar() {
                             alt=""
                             className="sidebar__friendimg"
                         />
-                        <span className="sidebar__friendname">C</span>
+                        <span className="sidebar__friendname">Alis</span>
                     </li>
                 </ul>
             </div>
