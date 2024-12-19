@@ -6,16 +6,18 @@ export default function Post() {
         <div className="post">
             <div className="post__wrapper">
                 <div className="post__top">
-                    <img
-                        src="./assets/person/1.png"
-                        alt=""
-                        className="post__profileimg"
-                    />
-                    <span className="post__username">Konyee</span>
-                    <span className="post__date">5分前</span>
-                </div>
-                <div className="post__right">
-                    <MoreVert />
+                    <div className="post__top__left">
+                        <img
+                            src="./assets/person/1.png"
+                            alt=""
+                            className="post__profileimg"
+                        />
+                        <span className="post__username">Konyee</span>
+                        <span className="post__date">5分前</span>
+                    </div>
+                    <div className="post__top__right">
+                        <MoreVert />
+                    </div>
                 </div>
                 <div className="post__center">
                     <span className="post__text">Hello World!</span>
