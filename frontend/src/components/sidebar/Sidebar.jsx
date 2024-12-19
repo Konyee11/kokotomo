@@ -43,7 +43,7 @@ export default function Sidebar() {
                         <span className="sidebar__text">設定</span>
                     </li>
                 </ul>
-                <hr className="sidebar_hr" />
+                <hr className="sidebar__hr" />
                 <ul className="sidebar__friendlist">
                     <li className="sidebar__friend">
                         <img
@@ -52,6 +52,22 @@ export default function Sidebar() {
                             className="sidebar__friendimg"
                         />
                         <span className="sidebar__friendname">John Doe</span>
+                    </li>
+                    <li className="sidebar__friend">
+                        <img
+                            src="/public/assets/person/3.jpeg"
+                            alt=""
+                            className="sidebar__friendimg"
+                        />
+                        <span className="sidebar__friendname">B</span>
+                    </li>
+                    <li className="sidebar__friend">
+                        <img
+                            src="/public/assets/person/4.jpeg"
+                            alt=""
+                            className="sidebar__friendimg"
+                        />
+                        <span className="sidebar__friendname">C</span>
                     </li>
                 </ul>
             </div>
