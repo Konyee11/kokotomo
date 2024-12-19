@@ -1,11 +1,12 @@
 import "./Rightbar.scss";
 import Online from "../online/Online";
 import { Users } from "../../dummyData";
+import PropTypes from "prop-types";
 
-export default function Rightbar() {
-    return (
-        <div className="rightbar">
-            <div className="rightbar__wrapper">
+export default function Rightbar({ profile }) {
+    const HomeRightbar = () => {
+        return (
+            <>
                 <div className="event">
                     <img
                         src="./assets/star.png"
@@ -44,7 +45,23 @@ export default function Rightbar() {
                     className="promotion__img"
                 />
                 <p className="promotion__name">株式会社XYZ</p>
+            </>
+        );
+    };
+
+    const ProfileRightbar = () => {
+        return <>profileのrightbarです</>;
+    };
+
+    return (
+        <div className="rightbar">
+            <div className="rightbar__wrapper">
+                {profile ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
         </div>
     );
 }
+
+Rightbar.propTypes = {
+    profile: PropTypes.bool,
+};
