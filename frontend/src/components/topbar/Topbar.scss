@@ -1,7 +1,7 @@
 @use "../../styles/variables.scss" as *;
 
 .topbar {
-    background-color: $secondary;
+    background-color: $accent;
     height: 50px;
     width: 100%;
     display: flex;
@@ -12,38 +12,17 @@
 
     &__left {
         flex: 3;
+    }
 
-        .logo {
-            font-size: 24px;
-            color: $neutral;
-            font-weight: bold;
-            margin-left: 20px;
-        }
+    &__logo {
+        font-size: 24px;
+        color: $neutral;
+        font-weight: bold;
+        margin-left: 20px;
     }
 
     &__center {
         flex: 5;
-
-        .searchbar {
-            width: 100%;
-            height: 30px;
-            background-color: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-
-            &__icon {
-                font-size: 20px !important;
-                margin-left: 10px;
-                margin-right: 5px;
-            }
-
-            &__input {
-                border: none;
-                width: 90%;
-                outline: none;
-            }
-        }
     }
 
     &__right {
@@ -54,8 +33,58 @@
         color: $neutral;
     }
 
-    &__img {
-        width: 50px;
-        height: 50px;
+    &__iconItems {
+        display: flex;
+        align-items: center;
+    }
+
+    &__iconItem {
+        margin-right: 15px;
+        cursor: pointer;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    &__iconBadge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+
+    &__profileImg {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        object-fit: cover;
+    }
+}
+
+.searchbar {
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+
+    &__icon {
+        font-size: 20px !important;
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
+    &__input {
+        border: none;
+        width: 90%;
+        outline: none;
     }
 }
