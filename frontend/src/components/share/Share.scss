@@ -72,7 +72,7 @@
         margin-right: 20px;
 
         &:hover {
-            background-color: darken($accent, 5%);
+            background-color: darker($accent, 10%);
         }
 
         &:active {
