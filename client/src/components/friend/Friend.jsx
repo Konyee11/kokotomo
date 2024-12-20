@@ -2,10 +2,12 @@ import "./Friend.scss";
 import PropTypes from "prop-types";
 
 export default function Friend({ user }) {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+
     return (
         <li className="sidebar__friend">
             <img
-                src={user.profilePicture}
+                src={PUBLIC_FOLDER + user.profilePicture}
                 alt=""
                 className="sidebar__friendimg"
             />
