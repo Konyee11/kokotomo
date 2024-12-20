@@ -13,8 +13,6 @@ import { Users } from "../../dummyData";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
-    console.log(Users);
-
     return (
         <div className="sidebar">
             <div className="sidebar__wrapper">
