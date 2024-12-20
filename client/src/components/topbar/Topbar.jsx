@@ -3,6 +3,8 @@ import "./Topbar.scss";
 import { Link } from "react-router-dom";
 
 export default function Topbar() {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+
     return (
         <div className="topbar">
             <div className="topbar__left">
@@ -31,7 +33,7 @@ export default function Topbar() {
                         <span className="topbar__iconBadge">2</span>
                     </div>
                     <img
-                        src="./assets/person/1.png"
+                        src={PUBLIC_FOLDER + "/person/1.png"}
                         alt="User"
                         className="topbar__profileImg"
                     />
