@@ -1,19 +1,26 @@
 {
-    "name": "mern-sns-app",
+    "name": "kokotomo",
     "version": "1.0.0",
-    "description": "mern stack sns application",
-    "main": "server.mjs",
+    "description": "MERN stack application with Vite front-end and Node.js back-end",
+    "main": "server/server.mjs",
     "scripts": {
-        "dev": "nodemon server.mjs"
+        "start": "node server/server.js",
+        "client": "npm run dev --prefix client",
+        "server": "nodemon server/server.js",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "install-all": "npm install && cd client && npm install && cd ../server && npm install"
     },
-    "author": "konyee",
-    "license": "ISC",
+    "keywords": [
+        "mern",
+        "vite",
+        "node",
+        "react",
+        "express"
+    ],
+    "author": "Konyee",
+    "license": "MIT",
     "dependencies": {
-        "bcryptjs": "^2.4.3",
-        "dotenv": "^16.4.7",
-        "express": "^4.21.2",
-        "helmet": "^8.0.0",
-        "mongoose": "^8.9.0",
-        "nodemon": "^3.1.9"
+        "concurrently": "^7.6.0",
+        "nodemon": "^2.0.22"
     }
 }
