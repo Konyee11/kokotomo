@@ -2,12 +2,14 @@ import "./Share.scss";
 import { Analytics, Face, GifBox, Image } from "@mui/icons-material";
 
 export default function Share() {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+
     return (
         <div className="share">
             <div className="share__wrapper">
                 <div className="share__top">
                     <img
-                        src="./assets/person/1.png"
+                        src={PUBLIC_FOLDER + "/person/1.png"}
                         alt=""
                         className="share__profileimg"
                     />
