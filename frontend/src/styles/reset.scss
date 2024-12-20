@@ -1,0 +1,83 @@
+/* reset.scss: CSSのデフォルトスタイルをリセットし、一貫性を提供するためのスタイル */
+
+/* すべての要素の基本リセット */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML5要素のスタイルをリセット */
+html,
+body {
+    height: 100%;
+    font-size: 100%;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* リストのスタイルをリセット */
+ul,
+ol {
+    list-style: none;
+}
+
+/* リンクのスタイルをリセット */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* テーブルのスタイルをリセット */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 画像とメディア要素のスタイルをリセット */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* フォーム要素のスタイルをリセット */
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+/* ボタンのスタイルをリセット */
+button {
+    cursor: pointer;
+}
+
+/* 見出しのスタイルをリセット */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/* 引用のスタイルをリセット */
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
