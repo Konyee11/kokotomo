@@ -1,7 +1,6 @@
 {
-    "name": "mern-sns-app",
+    "name": "server",
     "version": "1.0.0",
-    "description": "mern stack sns application",
     "main": "server.mjs",
     "scripts": {
         "dev": "nodemon server.mjs"
