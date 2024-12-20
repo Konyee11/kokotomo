@@ -5,6 +5,8 @@ import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
 
 export default function Post({ post }) {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+
     const user = Users.filter((user) => user.id === post.userId);
 
     const [like, setLike] = useState(post.like);
@@ -21,7 +23,7 @@ export default function Post({ post }) {
                 <div className="post__top">
                     <div className="post__top__left">
                         <img
-                            src={user[0].profilePicture}
+                            src={PUBLIC_FOLDER + user[0].profilePicture}
                             alt=""
                             className="post__profileimg"
                         />
@@ -36,12 +38,16 @@ export default function Post({ post }) {
                 </div>
                 <div className="post__center">
                     <span className="post__text">{post.desc}</span>
-                    <img src={post.photo} alt="" className="post__img" />
+                    <img
+                        src={PUBLIC_FOLDER + post.photo}
+                        alt=""
+                        className="post__img"
+                    />
                 </div>
                 <div className="post__bottom">
                     <div className="post__bottom__left">
                         <img
-                            src="./assets/heart.png"
+                            src={PUBLIC_FOLDER + "/heart.png"}
                             alt=""
                             className="post__likeIcon"
                             onClick={() => handleLike()}
