@@ -5,6 +5,7 @@ import Timeline from "../../components/timeline/Timeline";
 import Rightbar from "../../components/rightbar/Rightbar";
 
 export default function Profile() {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
     return (
         <>
             <Topbar />
@@ -14,12 +15,12 @@ export default function Profile() {
                     <div className="profile__right__top">
                         <div className="profile__cover">
                             <img
-                                src="assets/post/3.jpeg"
+                                src={PUBLIC_FOLDER + "/post/3.jpeg"}
                                 alt=""
                                 className="profile__cover__img"
                             />
                             <img
-                                src="assets/person/3.jpeg"
+                                src={PUBLIC_FOLDER + "/person/2.jpeg"}
                                 alt=""
                                 className="profile__cover__user"
                             />
