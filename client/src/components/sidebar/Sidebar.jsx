@@ -10,17 +10,18 @@ import {
 import "./Sidebar.scss";
 import Friend from "../friend/Friend";
 import { Users } from "../../dummyData";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
-    console.log(Users);
-
     return (
         <div className="sidebar">
             <div className="sidebar__wrapper">
                 <ul className="sidebar__list">
                     <li className="sidebar__item">
                         <Home className="sidebar__icon" />
-                        <span className="sidebar__text">ホーム</span>
+                        <Link to="/">
+                            <span className="sidebar__text">ホーム</span>
+                        </Link>
                     </li>
                     <li className="sidebar__item">
                         <Search className="sidebar__icon" />
@@ -40,7 +41,9 @@ export default function Sidebar() {
                     </li>
                     <li className="sidebar__item">
                         <Person className="sidebar__icon" />
-                        <span className="sidebar__text">プロフィール</span>
+                        <Link to="/profile/username">
+                            <span className="sidebar__text">プロフィール</span>
+                        </Link>
                     </li>
                     <li className="sidebar__item">
                         <Settings className="sidebar__icon" />

@@ -3,13 +3,15 @@ import Online from "../online/Online";
 import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
 
-export default function Rightbar({ profile }) {
+export default function Rightbar({ user }) {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+
     const HomeRightbar = () => {
         return (
             <>
                 <div className="event">
                     <img
-                        src="./assets/star.png"
+                        src={PUBLIC_FOLDER + "/star.png"}
                         alt=""
                         className="event__star"
                     />
@@ -18,7 +20,11 @@ export default function Rightbar({ profile }) {
                         イベント開催中！
                     </span>
                 </div>
-                <img src="/assets/event.jpeg" alt="" className="event__img" />
+                <img
+                    src={PUBLIC_FOLDER + "/event.jpeg"}
+                    alt=""
+                    className="event__img"
+                />
                 <h4 className="rightbar__title">オンラインの友達</h4>
                 <ul className="rightbar__friendlist">
                     {Users.map((user) => (
@@ -27,19 +33,19 @@ export default function Rightbar({ profile }) {
                 </ul>
                 <p className="promotion">プロモーション広告</p>
                 <img
-                    src="./assets/promotion/promotion1.jpeg"
+                    src={PUBLIC_FOLDER + "/promotion/promotion1.jpeg"}
                     alt=""
                     className="promotion__img"
                 />
                 <p className="promotion__name">ショッピング</p>
                 <img
-                    src="./assets/promotion/promotion2.jpeg"
+                    src={PUBLIC_FOLDER + "/promotion/promotion2.jpeg"}
                     alt=""
                     className="promotion__img"
                 />
                 <p className="promotion__name">カーショップ</p>
                 <img
-                    src="./assets/promotion/promotion3.jpeg"
+                    src={PUBLIC_FOLDER + "/promotion/promotion3.jpeg"}
                     alt=""
                     className="promotion__img"
                 />
@@ -61,7 +67,7 @@ export default function Rightbar({ profile }) {
                     <div className="rightbar__followings">
                         <div className="rightbar__following">
                             <img
-                                src="assets/person/1.png"
+                                src={PUBLIC_FOLDER + "/person/1.png"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -71,7 +77,7 @@ export default function Rightbar({ profile }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src="assets/person/1.png"
+                                src={PUBLIC_FOLDER + "/person/1.png"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -81,7 +87,7 @@ export default function Rightbar({ profile }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src="assets/person/1.png"
+                                src={PUBLIC_FOLDER + "/person/1.png"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -91,7 +97,7 @@ export default function Rightbar({ profile }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src="assets/person/1.png"
+                                src={PUBLIC_FOLDER + "/person/1.png"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -101,7 +107,7 @@ export default function Rightbar({ profile }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src="assets/person/1.png"
+                                src={PUBLIC_FOLDER + "/person/1.png"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -118,12 +124,12 @@ export default function Rightbar({ profile }) {
     return (
         <div className="rightbar">
             <div className="rightbar__wrapper">
-                {profile ? <ProfileRightbar /> : <HomeRightbar />}
+                {user ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
         </div>
     );
 }
 
 Rightbar.propTypes = {
-    profile: PropTypes.bool,
+    user: PropTypes.object,
 };
