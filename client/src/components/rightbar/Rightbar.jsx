@@ -3,7 +3,7 @@ import Online from "../online/Online";
 import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
 
-export default function Rightbar({ profile }) {
+export default function Rightbar({ user }) {
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
 
     const HomeRightbar = () => {
@@ -124,12 +124,12 @@ export default function Rightbar({ profile }) {
     return (
         <div className="rightbar">
             <div className="rightbar__wrapper">
-                {profile ? <ProfileRightbar /> : <HomeRightbar />}
+                {user ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
         </div>
     );
 }
 
 Rightbar.propTypes = {
-    profile: PropTypes.bool,
+    user: PropTypes.object,
 };
