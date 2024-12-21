@@ -9,6 +9,10 @@ export default defineConfig({
             "/api": {
                 target: "http://localhost:3000",
             },
+            "/profile/api": {
+                target: "http://localhost:3000",
+                rewrite: (path) => path.replace(/^\/profile\/api/, "/api"), // `/profile/api` を `/api` に置き換え
+            },
         },
     },
 });
