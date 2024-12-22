@@ -67,7 +67,7 @@ export default function Rightbar({ user }) {
                     <div className="rightbar__followings">
                         <div className="rightbar__following">
                             <img
-                                src={PUBLIC_FOLDER + "/person/1.png"}
+                                src={PUBLIC_FOLDER + "/person/1.jpg"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -77,7 +77,7 @@ export default function Rightbar({ user }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src={PUBLIC_FOLDER + "/person/1.png"}
+                                src={PUBLIC_FOLDER + "/person/1.jpg"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -87,7 +87,7 @@ export default function Rightbar({ user }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src={PUBLIC_FOLDER + "/person/1.png"}
+                                src={PUBLIC_FOLDER + "/person/1.jpg"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -97,7 +97,7 @@ export default function Rightbar({ user }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src={PUBLIC_FOLDER + "/person/1.png"}
+                                src={PUBLIC_FOLDER + "/person/1.jpg"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
@@ -107,7 +107,7 @@ export default function Rightbar({ user }) {
                         </div>
                         <div className="rightbar__following">
                             <img
-                                src={PUBLIC_FOLDER + "/person/1.png"}
+                                src={PUBLIC_FOLDER + "/person/1.jpg"}
                                 alt=""
                                 className="rightbar__following__img"
                             />
