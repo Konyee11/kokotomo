@@ -9,8 +9,6 @@ export default function Topbar() {
 
     const { user } = useContext(AuthContext);
 
-    console.log(user);
-
     return (
         <div className="topbar">
             <div className="topbar__left">
