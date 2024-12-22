@@ -1,57 +1,27 @@
 export const Users = [
     {
         id: 1,
-        profilePicture: "/person/1.png",
+        profilePicture: "/person/1.jpg",
         username: "Konyee",
     },
     {
         id: 2,
-        profilePicture: "/person/2.jpeg",
+        profilePicture: "/person/2.jpg",
         username: "Yamaki",
     },
     {
         id: 3,
-        profilePicture: "/person/3.jpeg",
+        profilePicture: "/person/3.jpg",
         username: "Koga",
     },
     {
         id: 4,
-        profilePicture: "/person/4.jpeg",
+        profilePicture: "/person/4.jpg",
         username: "Matukubo",
     },
     {
         id: 5,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 6,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 7,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 8,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 9,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 10,
-        profilePicture: "/person/5.jpeg",
-        username: "Kikukawa",
-    },
-    {
-        id: 11,
-        profilePicture: "/person/5.jpeg",
+        profilePicture: "/person/5.jpg",
         username: "Kikukawa",
     },
 ];
