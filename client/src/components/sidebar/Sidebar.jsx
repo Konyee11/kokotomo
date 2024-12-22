@@ -11,8 +11,12 @@ import "./Sidebar.scss";
 import Friend from "../friend/Friend";
 import { Users } from "../../dummyData";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Sidebar() {
+    const { user } = useContext(AuthContext);
+
     return (
         <div className="sidebar">
             <div className="sidebar__wrapper">
@@ -41,7 +45,7 @@ export default function Sidebar() {
                     </li>
                     <li className="sidebar__item">
                         <Person className="sidebar__icon" />
-                        <Link to="/profile/username">
+                        <Link to={`/profile/${user.username}`}>
                             <span className="sidebar__text">プロフィール</span>
                         </Link>
                     </li>
