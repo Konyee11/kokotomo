@@ -1,27 +1,27 @@
 import "./Timeline.scss";
 import Share from "../share/Share";
 import Post from "../post/Post";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // import { Posts } from "../../dummyData";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Timeline({ username }) {
     const [posts, setPosts] = useState([]);
 
+    const { user } = useContext(AuthContext);
+
     useEffect(() => {
         const fetchPosts = async () => {
             const response = username
-                ? await axios.get(`api/posts/users/${username}`)
-                : await axios.get(
-                      "api/posts/timeline/675e4db9739c91b694fe66d6"
-                  );
-            console.log(response.data);
+                ? await axios.get(`api/posts/users/${username}`) // プロフィールの場合
+                : await axios.get(`api/posts/timeline/${user._id}`); // ホームの場合
 
             setPosts(response.data);
         };
         fetchPosts();
-    }, [username]);
+    }, [username, user]);
 
     return (
         <div className="timeline">
