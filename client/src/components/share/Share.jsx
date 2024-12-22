@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import "./Share.scss";
 import { Analytics, Face, GifBox, Image } from "@mui/icons-material";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Share() {
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
-    const [user, setUser] = useState({});
-    const username = useParams().username; // /profile/:usernameのusernameを取得
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await axios.get(`api/users/?username=${username}`);
-            setUser(response.data);
-        };
-        fetchUser();
-    }, [username]);
+    const { user } = useContext(AuthContext);
 
     return (
         <div className="share">
@@ -23,8 +14,9 @@ export default function Share() {
                 <div className="share__top">
                     <img
                         src={
-                            PUBLIC_FOLDER +
-                            (user.profilePicture || "/person/noAvatar.png")
+                            user.profilePicture
+                                ? PUBLIC_FOLDER + user.profilePicture
+                                : PUBLIC_FOLDER + "/person/noAvatar.png"
                         }
                         alt=""
                         className="share__profileimg"
