@@ -1,18 +1,20 @@
 import "./Post.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { MoreVert } from "@mui/icons-material";
-// import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { format, register } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Post({ post }) {
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
 
     const [like, setLike] = useState(post.likes.length);
     const [isLiked, setIsLiked] = useState(false);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({}); // 投稿したユーザー情報を取得
+
+    const { user: currentUser } = useContext(AuthContext); // ログインユーザー情報を取得
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,7 +25,16 @@ export default function Post({ post }) {
         fetchUser();
     }, [post.userId]);
 
-    const handleLike = () => {
+    const handleLike = async () => {
+        try {
+            // いいねのAPIをたたく
+            const response = await axios.put(`api/posts/${post._id}/like`, {
+                userId: currentUser._id,
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
