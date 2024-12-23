@@ -1,5 +1,5 @@
 import "./Share.scss";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Analytics, Face, GifBox, Image } from "@mui/icons-material";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
@@ -9,7 +9,7 @@ export default function Share() {
 
     const { user } = useContext(AuthContext);
 
-    const desc = useRef();
+    const desc = useRef(); // 投稿内容を取得するためのref
 
     // 投稿ボタンをクリックしたときの処理
     const handleSubmit = async (e) => {
@@ -22,6 +22,22 @@ export default function Share() {
         };
         console.log(newPost);
 
+        if (file) {
+            // ファイルがある場合は，ファイルをアップロードする
+            const data = new FormData(); // ファイルを送信するためのFormDataを作成
+            const fileName = `${Date.now()} - ${file.name}`; // ファイル名を作成
+            data.append("name", fileName); // nameとしてファイル名を追加
+            data.append("file", file); // fileとしてファイルを追加
+            newPost.img = fileName; // 投稿に画像のファイル名を追加
+
+            try {
+                // ファイルをアップロードするAPIをたたく
+                await axios.post("api/upload", data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         try {
             // 投稿のAPIをたたく
             await axios.post("api/posts/", newPost);
@@ -30,6 +46,9 @@ export default function Share() {
             console.log(error);
         }
     };
+
+    // 投稿するファイルを取得するためのstate
+    const [file, setFile] = useState(null);
 
     return (
         <div className="share">
@@ -58,13 +77,20 @@ export default function Share() {
                     onSubmit={(e) => handleSubmit(e)}
                 >
                     <div className="share__options">
-                        <div className="share__option">
+                        <label className="share__option" htmlFor="file">
                             <Image
                                 className="share__option__icon"
                                 htmlColor="tomato"
                             />
                             <span className="share__option__text">写真</span>
-                        </div>
+                            <input
+                                type="file"
+                                id="file"
+                                accept=".png, .jpeg, .jpg"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
+                        </label>
                         <div className="share__option">
                             <GifBox
                                 className="share__option__icon"
