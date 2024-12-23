@@ -2,7 +2,6 @@ import "./Timeline.scss";
 import Share from "../share/Share";
 import Post from "../post/Post";
 import { useContext, useEffect, useState } from "react";
-// import { Posts } from "../../dummyData";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../state/AuthContext";
@@ -18,7 +17,11 @@ export default function Timeline({ username }) {
                 ? await axios.get(`api/posts/users/${username}`) // プロフィールの場合
                 : await axios.get(`api/posts/timeline/${user._id}`); // ホームの場合
 
-            setPosts(response.data);
+            setPosts(
+                response.data.sort((p1, p2) => {
+                    return new Date(p2.createdAt) - new Date(p1.createdAt);
+                })
+            );
         };
         fetchPosts();
     }, [username, user]);

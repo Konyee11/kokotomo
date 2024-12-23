@@ -1,29 +1,29 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import AuthReducer from "./AuthReducer";
 
 // 最初のユーザー状態を定義
 const initialState = {
-    // user: null,
-    user: {
-        _id: "675e5219685e82187795f011",
-        username: "Tanaka",
+    user: JSON.parse(localStorage.getItem("user")) || null,
+    // user: {
+    //     _id: "675e5219685e82187795f011",
+    //     username: "Tanaka",
 
-        email: "tanaka@gmail.com",
+    //     email: "tanaka@gmail.com",
 
-        password:
-            "$2a$10$eXhOS4m5yMM32bW5c9b4D.skwhdJe/buDq9gQPqi2IB3dUW5VixiC",
+    //     password:
+    //         "$2a$10$eXhOS4m5yMM32bW5c9b4D.skwhdJe/buDq9gQPqi2IB3dUW5VixiC",
 
-        profilePicture: "/person/2.jpg",
+    //     profilePicture: "/person/2.jpg",
 
-        coverPicture: "",
+    //     coverPicture: "",
 
-        followers: [],
+    //     followers: [],
 
-        followings: [],
+    //     followings: [],
 
-        isAdmin: false,
-    },
+    //     isAdmin: false,
+    // },
     isFetching: false,
     error: false,
 };
@@ -34,6 +34,11 @@ export const AuthContext = createContext(initialState);
 // ユーザー状態を提供するコンテキストプロバイダーを作成
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+    useEffect(() => {
+        localStorage.setItem("user", JSON.stringify(state.user));
+    }, [state.user]);
+
     return (
         <AuthContext.Provider
             value={{
