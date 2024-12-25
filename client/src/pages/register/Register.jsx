@@ -80,7 +80,10 @@ export default function Register() {
                             サインアップ
                         </button>
 
-                        <button className="register__registerBtn">
+                        <button
+                            className="register__registerBtn"
+                            onClick={() => navigateToLogin("/login")}
+                        >
                             ログイン
                         </button>
                     </form>
