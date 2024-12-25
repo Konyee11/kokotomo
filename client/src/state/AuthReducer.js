@@ -19,6 +19,12 @@ const AuthReducer = (state, action) => {
                 isFetching: false,
                 error: action.payload,
             };
+        case "LOGOUT": // ユーザーがログアウトしたときに呼び出される
+            return {
+                user: null,
+                isFetching: false,
+                error: false,
+            };
 
         default:
             return state;

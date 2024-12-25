@@ -13,3 +13,7 @@ export const LoginError = (error) => ({
     type: "LOGIN_ERROR",
     payload: error,
 });
+export const Logout = () => ({
+    // ユーザーがログアウトしたときに呼び出される
+    type: "LOGOUT",
+});

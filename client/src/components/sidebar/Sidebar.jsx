@@ -1,6 +1,7 @@
 import {
     Bookmark,
     Home,
+    Logout,
     Message,
     Notifications,
     Person,
@@ -17,16 +18,22 @@ import { AuthContext } from "../../state/AuthContext";
 export default function Sidebar() {
     const { user } = useContext(AuthContext);
 
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        window.location.reload();
+    };
+
     return (
         <div className="sidebar">
             <div className="sidebar__wrapper">
                 <ul className="sidebar__list">
-                    <li className="sidebar__item">
-                        <Home className="sidebar__icon" />
-                        <Link to="/">
+                    <Link to="/">
+                        <li className="sidebar__item">
+                            <Home className="sidebar__icon" />
+
                             <span className="sidebar__text">ホーム</span>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
                     <li className="sidebar__item">
                         <Search className="sidebar__icon" />
                         <span className="sidebar__text">検索</span>
@@ -43,15 +50,20 @@ export default function Sidebar() {
                         <Bookmark className="sidebar__icon" />
                         <span className="sidebar__text">ブックマーク</span>
                     </li>
-                    <li className="sidebar__item">
-                        <Person className="sidebar__icon" />
-                        <Link to={`/profile/${user.username}`}>
+                    <Link to={`/profile/${user.username}`}>
+                        <li className="sidebar__item">
+                            <Person className="sidebar__icon" />
                             <span className="sidebar__text">プロフィール</span>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
                     <li className="sidebar__item">
                         <Settings className="sidebar__icon" />
                         <span className="sidebar__text">設定</span>
+                    </li>
+
+                    <li className="sidebar__item" onClick={handleLogout}>
+                        <Logout className="sidebar__icon" />
+                        <span className="sidebar__text">ログアウト</span>
                     </li>
                 </ul>
                 <hr className="sidebar__hr" />
