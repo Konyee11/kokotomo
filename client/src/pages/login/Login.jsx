@@ -2,6 +2,7 @@ import { useContext, useRef } from "react";
 import "./Login.scss";
 import { loginCall } from "../../dispatch";
 import { AuthContext } from "../../state/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const email = useRef();
@@ -15,6 +16,8 @@ export default function Login() {
             dispatch
         );
     };
+
+    const navigateToRegister = useNavigate();
 
     return (
         <div className="login">
@@ -50,7 +53,12 @@ export default function Login() {
                         <span className="login__forgot">
                             パスワードを忘れた方へ
                         </span>
-                        <button className="login__registerBtn">新規登録</button>
+                        <button
+                            className="login__registerBtn"
+                            onClick={() => navigateToRegister("/register")}
+                        >
+                            新規登録
+                        </button>
                     </form>
                 </div>
             </div>
