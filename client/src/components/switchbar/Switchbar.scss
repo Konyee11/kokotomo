@@ -1,0 +1,26 @@
+@use "../../styles/variables.scss" as *;
+
+.switchbar {
+    margin-top: 30px;
+    margin-bottom: -10px;
+
+    &__wrapper {
+        display: flex;
+        box-shadow: 1px 1px 10px 0px $accent;
+        border-radius: 10px;
+        transition: all 0.3s;
+        background-color: $secondary;
+
+        & > div {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+    }
+
+    &__active {
+        background-color: $accent;
+        color: $secondary;
+        border-radius: 10px;
+    }
+}

@@ -21,6 +21,11 @@ export default function Profile() {
         fetchUser();
     }, [username]);
 
+    useEffect(() => {
+        // ページ遷移時にトップにスクロール
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <Topbar />
