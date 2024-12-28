@@ -15,8 +15,14 @@ export default function Profile() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await axios.get(`api/users/?username=${username}`);
-            setUser(response.data);
+            try {
+                const response = await axios.get(
+                    `api/users/?username=${username}`
+                );
+                setUser(response.data);
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchUser();
     }, [username]);
@@ -25,9 +31,6 @@ export default function Profile() {
         // スクロール位置をリセットするためにページ遷移時にトップにスクロール
         window.scrollTo(0, 0);
     }, []);
-
-    // console.log(user);
-
     return (
         <>
             <Topbar />
@@ -62,7 +65,9 @@ export default function Profile() {
                     </div>
                     <div className="profile__right__bottom">
                         <Timeline username={username} />
-                        <Rightbar user={user} />
+                        {Object.keys(user).length > 0 && (
+                            <Rightbar user={user} />
+                        )}
                     </div>
                 </div>
             </div>
