@@ -22,9 +22,11 @@ export default function Profile() {
     }, [username]);
 
     useEffect(() => {
-        // ページ遷移時にトップにスクロール
+        // スクロール位置をリセットするためにページ遷移時にトップにスクロール
         window.scrollTo(0, 0);
     }, []);
+
+    // console.log(user);
 
     return (
         <>
