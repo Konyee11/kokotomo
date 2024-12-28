@@ -1,9 +1,16 @@
 import "./Rightbar.scss";
 import Online from "../online/Online";
+import Follow from "../follow/Follow";
 import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Rightbar({ user }) {
+    console.log(user);
+
+    const { user: loginUser } = useContext(AuthContext);
+
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
 
     const HomeRightbar = () => {
@@ -28,7 +35,7 @@ export default function Rightbar({ user }) {
                 <h4 className="rightbar__title">オンラインの友達</h4>
                 <ul className="rightbar__friendlist">
                     {Users.map((user) => (
-                        <Online key={user.id} user={user} />
+                        <Online key={user._id} user={user} />
                     ))}
                 </ul>
                 <p className="promotion">プロモーション広告</p>
@@ -57,6 +64,9 @@ export default function Rightbar({ user }) {
     const ProfileRightbar = () => {
         return (
             <>
+                {user.username !== loginUser.username && (
+                    <Follow targetUser={user} />
+                )}
                 <h4 className="rightbar__title">ユーザー情報</h4>
                 <div className="rightbar__info">
                     <div className="rightbar__info__item">
@@ -131,5 +141,16 @@ export default function Rightbar({ user }) {
 }
 
 Rightbar.propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.shape({
+        _id: PropTypes.string,
+        username: PropTypes.string,
+        email: PropTypes.string,
+        profilePicture: PropTypes.string,
+        coverPicture: PropTypes.string,
+        followers: PropTypes.array,
+        followings: PropTypes.array,
+        desc: PropTypes.string,
+        isAdmin: PropTypes.bool,
+        createdAt: PropTypes.string,
+    }),
 };
