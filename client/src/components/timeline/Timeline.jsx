@@ -44,13 +44,15 @@ export default function Timeline({ username }) {
     return (
         <div className="timeline">
             <div className="timeline__wrapper">
-                <Share />
                 {/* プロフィールページではSwitchbarを表示させない */}
                 {!username && (
-                    <Switchbar
-                        activeTab={activeTab}
-                        setActiveTab={setActiveTab}
-                    />
+                    <>
+                        <Share />
+                        <Switchbar
+                            activeTab={activeTab}
+                            setActiveTab={setActiveTab}
+                        />
+                    </>
                 )}
                 {posts.map((post) => (
                     <Post key={post._id} post={post} />

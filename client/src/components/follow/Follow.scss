@@ -1,0 +1,23 @@
+@use "../../styles/variables.scss" as *;
+
+.follow {
+    margin-bottom: 30px;
+    cursor: pointer;
+
+    &__btn {
+        width: 30%;
+        text-align: center;
+        background-color: $accent;
+        border-radius: 10px;
+        transition: all 0.3s;
+        padding: 10px;
+
+        &--active {
+            background-color: $secondary;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}

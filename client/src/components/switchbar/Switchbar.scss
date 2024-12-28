@@ -1,8 +1,7 @@
 @use "../../styles/variables.scss" as *;
 
 .switchbar {
-    margin-top: 30px;
-    margin-bottom: -10px;
+    margin: 30px 0;
 
     &__wrapper {
         display: flex;

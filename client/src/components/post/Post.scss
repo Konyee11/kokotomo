@@ -4,11 +4,11 @@
     width: 100%;
     box-shadow: 1px 1px 10px 0px $accent;
     border-radius: 10px;
-    margin: 30px 0;
     background-color: $secondary;
 
     &__wrapper {
         padding: 10px;
+        margin-bottom: 20px;
     }
 
     &__top {
