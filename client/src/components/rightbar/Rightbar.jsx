@@ -7,8 +7,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../state/AuthContext";
 
 export default function Rightbar({ user }) {
-    console.log(user);
-
     const { user: loginUser } = useContext(AuthContext);
 
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
