@@ -11,6 +11,9 @@ export default function Share() {
 
     const desc = useRef(); // 投稿内容を取得するためのref
 
+    // 投稿するファイルを取得するためのstate
+    const [file, setFile] = useState(null);
+
     // 投稿ボタンをクリックしたときの処理
     const handleSubmit = async (e) => {
         e.preventDefault(); // ページ遷移を防ぐ
@@ -25,16 +28,16 @@ export default function Share() {
         if (file) {
             // ファイルがある場合は，ファイルをアップロードする
             const data = new FormData(); // ファイルを送信するためのFormDataを作成
-            const fileName = `${Date.now()} - ${file.name}`; // ファイル名を作成
-            data.append("name", fileName); // nameとしてファイル名を追加
-            data.append("file", file); // fileとしてファイルを追加
-            newPost.img = fileName; // 投稿に画像のファイル名を追加
+            data.append("image", file); // nameとしてファイル名を追加
+            data.append("folder", "post"); // 画像を保存するフォルダをpostに指定
 
             try {
                 // ファイルをアップロードするAPIをたたく
-                await axios.post("api/upload", data);
+                const uploadRes = await axios.post("api/upload", data);
+                newPost.img = uploadRes.data.imageUrl; // 画像のURLをnewPostに追加
             } catch (error) {
-                console.log(error);
+                console.log("画像アップロードエラー:", error);
+                return;
             }
         }
 
@@ -43,12 +46,9 @@ export default function Share() {
             await axios.post("api/posts/", newPost);
             window.location.reload(); // ページをリロード
         } catch (error) {
-            console.log(error);
+            console.log("投稿エラー:", error);
         }
     };
-
-    // 投稿するファイルを取得するためのstate
-    const [file, setFile] = useState(null);
 
     return (
         <div className="share">
