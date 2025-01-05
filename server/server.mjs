@@ -16,6 +16,8 @@ dotenv.config();
 import path from "path";
 import { fileURLToPath } from "url";
 
+import cors from "cors";
+
 // データベースの接続
 mongoose
     .connect(process.env.MONGODB_URL)
@@ -24,6 +26,7 @@ mongoose
 
 // ミドルウェアの設定
 app.use(express.json());
+app.use(cors());
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
@@ -38,5 +41,5 @@ const __dirname = path.dirname(__filename); // このファイルのディレク
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 app.listen(PORT, () =>
-    console.log(`サーバーが起動しました：http://localhost:${PORT}`)
+    console.log(`サーバーが起動しました: http://localhost:${PORT}`)
 );
