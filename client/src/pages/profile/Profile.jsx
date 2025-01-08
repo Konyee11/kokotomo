@@ -8,8 +8,6 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 export default function Profile() {
-    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
-
     const [user, setUser] = useState({});
     const username = useParams().username; // /profile/:usernameのusernameを取得
 
@@ -40,17 +38,21 @@ export default function Profile() {
                     <div className="profile__right__top">
                         <div className="profile__cover">
                             <img
-                                src={PUBLIC_FOLDER + "/post/3.jpeg"}
-                                alt=""
+                                src={
+                                    user.coverPicture
+                                        ? user.coverPicture
+                                        : "/images/defaultCover.jpg"
+                                }
+                                alt="カバー画像"
                                 className="profile__cover__img"
                             />
                             <img
                                 src={
-                                    PUBLIC_FOLDER +
-                                    (user.profilePicture ||
-                                        "/person/noAvatar.png")
+                                    user.profilePicture
+                                        ? user.profilePicture
+                                        : "/images/noAvatar.png"
                                 }
-                                alt=""
+                                alt="プロフィール画像"
                                 className="profile__cover__user"
                             />
                         </div>
