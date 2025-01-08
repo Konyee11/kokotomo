@@ -1,0 +1,35 @@
+@use "../../styles/variables.scss" as *;
+
+.btn {
+    color: $neutral;
+    padding: 8px 16px;
+    border: $neutral 1px solid;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: $neutral;
+        color: $primary;
+    }
+
+    &--small {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    &--middium {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+
+    &--large {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+
+    &:disabled {
+        background-color: lightgray;
+        cursor: not-allowed;
+    }
+}
