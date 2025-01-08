@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 .rightbar {
     flex: 4;
 
@@ -6,7 +8,7 @@
     }
 
     &__title {
-        margin-bottom: 20px;
+        margin: 20px 0px;
     }
 
     &__friendlist {
@@ -77,6 +79,21 @@
             border-radius: 50%;
             margin-right: 10px;
             object-fit: cover;
+        }
+    }
+
+    &__editBtn {
+        color: $neutral;
+        border: $neutral 1px solid;
+        padding: 10px;
+        border-radius: 100px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+            background-color: $neutral;
+            color: $primary;
         }
     }
 }

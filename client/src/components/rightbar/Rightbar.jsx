@@ -1,13 +1,17 @@
 import "./Rightbar.scss";
 import Online from "../online/Online";
 import Follow from "../follow/Follow";
+import Button from "../btn/Button";
 import { Users } from "../../dummyData";
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
+import ProfileEditModal from "../modal/ProfileEditModal";
 
 export default function Rightbar({ user }) {
     const { user: loginUser } = useContext(AuthContext);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
 
@@ -62,8 +66,13 @@ export default function Rightbar({ user }) {
     const ProfileRightbar = () => {
         return (
             <>
-                {user.username !== loginUser.username && (
-                    <Follow targetUser={user} />
+                {user._id !== loginUser._id && <Follow targetUser={user} />}
+                {user._id === loginUser._id && (
+                    <Button
+                        title="プロフィール編集"
+                        size="large"
+                        onClick={() => setIsModalOpen(true)}
+                    />
                 )}
                 <h4 className="rightbar__title">ユーザー情報</h4>
                 <div className="rightbar__info">
@@ -134,6 +143,11 @@ export default function Rightbar({ user }) {
             <div className="rightbar__wrapper">
                 {user ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
+            <ProfileEditModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                user={user}
+            />
         </div>
     );
 }
