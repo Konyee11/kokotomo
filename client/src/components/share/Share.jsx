@@ -28,7 +28,7 @@ export default function Share() {
         if (file) {
             // ファイルがある場合は，ファイルをアップロードする
             const data = new FormData(); // ファイルを送信するためのFormDataを作成
-            data.append("image", file); // nameとしてファイル名を追加
+            data.append("image", file); // 画像を追加
             data.append("folder", "post"); // 画像を保存するフォルダをpostに指定
 
             try {
