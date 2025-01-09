@@ -10,11 +10,23 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
     const [coverImage, setCoverImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const [coverPreview, setCoverPreview] = useState(
-        user.coverPicture || "/images/defaultCover.jpg"
+        user?.coverPicture || "/images/defaultCover.jpg"
     );
     const [profilePreview, setProfilePreview] = useState(
-        user.profilePicture || "/images/noAvatar.png"
+        user?.profilePicture || "/images/noAvatar.png"
     );
+
+    // メモリリークを防ぐためにプレビュー画像が更新されたら前の画像のURLを解放する
+    useEffect(() => {
+        return () => {
+            if (coverPreview && coverPreview !== "/images/defaultCover.jpg") {
+                URL.revokeObjectURL(coverPreview);
+            }
+            if (profilePreview && profilePreview !== "/images/noAvatar.png") {
+                URL.revokeObjectURL(profilePreview);
+            }
+        };
+    }, [coverPreview, profilePreview]);
 
     // カバー画像が変更されたらプレビューを表示する
     const handleCoverChange = (e) => {
@@ -83,19 +95,16 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
         }
     };
 
-    // メモリリークを防ぐためにプレビュー画像が更新されたら前の画像のURLを解放する
-    useEffect(() => {
-        return () => {
-            if (coverPreview && coverPreview !== "/images/defaultCover.jpg") {
-                URL.revokeObjectURL(coverPreview);
-            }
-            if (profilePreview && profilePreview !== "/images/noAvatar.png") {
-                URL.revokeObjectURL(profilePreview);
-            }
-        };
-    }, [coverPreview, profilePreview]);
-
     if (!isOpen) return null;
+
+    // ローディング中のUIを表示
+    if (!user) {
+        return (
+            <div className="profileEditModal">
+                <p>Loading...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="profileEditModal" onClick={onClose}>
