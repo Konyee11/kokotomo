@@ -6,79 +6,111 @@ import Button from "../btn/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const DEFAULT_COVER = "/images/defaultCover.jpg";
+const DEFAULT_PROFILE = "/images/noAvatar.png";
+
+/**
+ * 画像アップロード用のFormDataを作成するヘルパー関数
+ */
+const createFormData = (imageFile, folder, userId) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    formData.append("folder", folder);
+    formData.append("userId", userId);
+    return formData;
+};
+
+/**
+ * 画像を並列でアップロードし、取得したURLを返す
+ */
+const uploadImages = async (
+    coverImage,
+    profileImage,
+    userId,
+    defaultCoverUrl,
+    defaultProfileUrl
+) => {
+    // coverImageがあればFormData作成
+    const coverFormData = coverImage
+        ? createFormData(coverImage, "cover", userId)
+        : null;
+    // profileImageがあればFormData作成
+    const profileFormData = profileImage
+        ? createFormData(profileImage, "person", userId)
+        : null;
+
+    // 並列でアップロード
+    const [coverRes, profileRes] = await Promise.all([
+        coverFormData
+            ? axios.post("/api/upload", coverFormData)
+            : Promise.resolve(null),
+        profileFormData
+            ? axios.post("/api/upload", profileFormData)
+            : Promise.resolve(null),
+    ]);
+
+    // それぞれのURLを取得し、元々のURLがなければデフォルト値を使う
+    const coverImageURL = coverRes?.data?.imageUrl || defaultCoverUrl;
+    const profileImageURL = profileRes?.data?.imageUrl || defaultProfileUrl;
+
+    return { coverImageURL, profileImageURL };
+};
+
+/**
+ * プロフィール編集モーダルコンポーネント
+ */
 export default function ProfileEditModal({ isOpen, onClose, user }) {
     const [coverImage, setCoverImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
+
     const [coverPreview, setCoverPreview] = useState(
-        user?.coverPicture || "/images/defaultCover.jpg"
+        user?.coverPicture || DEFAULT_COVER
     );
     const [profilePreview, setProfilePreview] = useState(
-        user?.profilePicture || "/images/noAvatar.png"
+        user?.profilePicture || DEFAULT_PROFILE
     );
 
-    // メモリリークを防ぐためにプレビュー画像が更新されたら前の画像のURLを解放する
+    // アンマウント時にプレビューURLを解放
     useEffect(() => {
         return () => {
-            if (coverPreview && coverPreview !== "/images/defaultCover.jpg") {
+            if (coverPreview && coverPreview !== DEFAULT_COVER) {
                 URL.revokeObjectURL(coverPreview);
             }
-            if (profilePreview && profilePreview !== "/images/noAvatar.png") {
+            if (profilePreview && profilePreview !== DEFAULT_PROFILE) {
                 URL.revokeObjectURL(profilePreview);
             }
         };
     }, [coverPreview, profilePreview]);
 
-    // カバー画像が変更されたらプレビューを表示する
-    const handleCoverChange = (e) => {
+    // ユーザーが画像を選択したらプレビューを表示
+    const handleImageChange = (e, setImage, setPreview, defaultUrl) => {
         const file = e.target.files[0];
         if (file) {
-            setCoverImage(file);
-            setCoverPreview(URL.createObjectURL(file));
+            setImage(file);
+            setPreview(URL.createObjectURL(file));
+        } else {
+            // 画像選択を取り消した場合は、デフォルトに戻す
+            setImage(null);
+            setPreview(defaultUrl);
         }
     };
 
-    // プロフィール画像が変更されたらプレビューを表示する
-    const handleProfileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setProfileImage(file);
-            setProfilePreview(URL.createObjectURL(file));
-        }
-    };
-
-    // プロフィールを更新する
+    // 保存ボタンクリック時の処理
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!user) return;
+
         try {
-            // アップロード用のFormDataを作成
-            const coverFormData = new FormData();
-            if (coverImage) {
-                coverFormData.append("image", coverImage);
-                coverFormData.append("folder", "cover");
-            }
+            // 画像アップロード処理
+            const { coverImageURL, profileImageURL } = await uploadImages(
+                coverImage,
+                profileImage,
+                user._id,
+                user.coverPicture,
+                user.profilePicture
+            );
 
-            const profileFormData = new FormData();
-            if (profileImage) {
-                profileFormData.append("image", profileImage);
-                profileFormData.append("folder", "person");
-            }
-
-            // 並列で画像をアップロードする
-            const [coverRes, profileRes] = await Promise.all([
-                coverImage
-                    ? axios.post("/api/upload", coverFormData)
-                    : Promise.resolve(null),
-                profileImage
-                    ? axios.post("/api/upload", profileFormData)
-                    : Promise.resolve(null),
-            ]);
-
-            // 画像のURLを取得
-            const coverImageURL = coverRes?.data?.imageUrl || user.coverPicture;
-            const profileImageURL =
-                profileRes?.data?.imageUrl || user.profilePicture;
-
-            // プロフィールを更新する
+            // ユーザー情報を更新
             const updatedUser = {
                 userId: user._id,
                 coverPicture: coverImageURL,
@@ -88,16 +120,15 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                 `/api/users/${user._id}`,
                 updatedUser
             );
-            console.log(response.data);
+            console.log("プロフィール更新成功:", response.data);
             onClose();
         } catch (error) {
-            console.log("プロフィールの更新に失敗しました", error);
+            console.log("プロフィールの更新に失敗しました:", error);
         }
     };
 
+    // モーダルが非表示またはユーザー情報がない場合
     if (!isOpen) return null;
-
-    // ローディング中のUIを表示
     if (!user) {
         return (
             <div className="profileEditModal">
@@ -131,6 +162,7 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                         form="profileForm"
                     />
                 </div>
+
                 <form
                     className="profileEditModal__form"
                     id="profileForm"
@@ -146,13 +178,21 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                             id="coverInput"
                             accept=".png,.jpeg,.jpg"
                             style={{ display: "none" }}
-                            onChange={handleCoverChange}
+                            onChange={(e) =>
+                                handleImageChange(
+                                    e,
+                                    setCoverImage,
+                                    setCoverPreview,
+                                    DEFAULT_COVER
+                                )
+                            }
                         />
                         <img
                             src={coverPreview}
                             alt="カバー画像"
                             className="profileEditModal__profileImg__cover"
                         />
+
                         {/* プロフィール画像 */}
                         <label htmlFor="profileInput">
                             <AddAPhotoIcon className="cameraAltIcon--profile" />
@@ -162,7 +202,14 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                             id="profileInput"
                             accept=".png,.jpeg,.jpg"
                             style={{ display: "none" }}
-                            onChange={handleProfileChange}
+                            onChange={(e) =>
+                                handleImageChange(
+                                    e,
+                                    setProfileImage,
+                                    setProfilePreview,
+                                    DEFAULT_PROFILE
+                                )
+                            }
                         />
                         <img
                             src={profilePreview}
