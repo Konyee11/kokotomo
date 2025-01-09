@@ -4,49 +4,68 @@ import { Analytics, Face, GifBox, Image } from "@mui/icons-material";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 
+/**
+ * 投稿コンポーネント
+ */
 export default function Share() {
-    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
-
     const { user } = useContext(AuthContext);
 
-    const desc = useRef(); // 投稿内容を取得するためのref
+    // 投稿内容テキストのref
+    const descRef = useRef();
 
-    // 投稿するファイルを取得するためのstate
+    // 投稿するファイルを管理するstate
     const [file, setFile] = useState(null);
 
-    // 投稿ボタンをクリックしたときの処理
-    const handleSubmit = async (e) => {
-        e.preventDefault(); // ページ遷移を防ぐ
+    /**
+     * 画像アップロード専用の関数
+     * @param {File} file アップロードするファイル
+     * @returns アップロードされた画像のURL
+     */
+    const uploadImage = async (file) => {
+        if (!file) return null;
+        try {
+            const formData = new FormData();
+            formData.append("image", file);
+            formData.append("folder", "post");
+            formData.append("userId", user._id);
 
-        // 新しい投稿を作成
+            const uploadRes = await axios.post("api/upload", formData);
+            return uploadRes.data.imageUrl;
+        } catch (error) {
+            console.error("画像アップロードエラー:", error);
+            throw error; // ここでエラーを投げて上位で処理
+        }
+    };
+
+    /**
+     * 投稿ボタン押下時の処理
+     */
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // 1. 新規投稿データを作成
         const newPost = {
             userId: user._id,
-            desc: desc.current.value,
+            desc: descRef.current.value,
         };
-        console.log(newPost);
 
+        // 2. 画像がある場合はアップロード
         if (file) {
-            // ファイルがある場合は，ファイルをアップロードする
-            const data = new FormData(); // ファイルを送信するためのFormDataを作成
-            data.append("image", file); // 画像を追加
-            data.append("folder", "post"); // 画像を保存するフォルダをpostに指定
-
             try {
-                // ファイルをアップロードするAPIをたたく
-                const uploadRes = await axios.post("api/upload", data);
-                newPost.img = uploadRes.data.imageUrl; // 画像のURLをnewPostに追加
-            } catch (error) {
-                console.log("画像アップロードエラー:", error);
+                const imageUrl = await uploadImage(file);
+                newPost.img = imageUrl;
+            } catch {
+                // アップロードエラー時は投稿処理を中断
                 return;
             }
         }
 
+        // 3. 投稿APIを呼び出し
         try {
-            // 投稿のAPIをたたく
             await axios.post("api/posts/", newPost);
-            window.location.reload(); // ページをリロード
+            window.location.reload(); // 投稿後、ページをリロード
         } catch (error) {
-            console.log("投稿エラー:", error);
+            console.error("投稿エラー:", error);
         }
     };
 
@@ -57,26 +76,24 @@ export default function Share() {
                     <img
                         src={
                             user.profilePicture
-                                ? PUBLIC_FOLDER + user.profilePicture
-                                : PUBLIC_FOLDER + "/person/noAvatar.png"
+                                ? user.profilePicture
+                                : "/images/noAvatar.png"
                         }
-                        alt=""
+                        alt="プロフィール画像"
                         className="share__profileimg"
                     />
                     <input
                         type="text"
                         placeholder="今の気持ちを投稿してみよう！"
                         className="share__input"
-                        ref={desc}
-                        id="desc"
+                        ref={descRef}
                     />
                 </div>
                 <hr className="share__hr" />
-                <form
-                    className="share__buttons"
-                    onSubmit={(e) => handleSubmit(e)}
-                >
+
+                <form className="share__buttons" onSubmit={handleSubmit}>
                     <div className="share__options">
+                        {/* 写真アップロード */}
                         <label className="share__option" htmlFor="file">
                             <Image
                                 className="share__option__icon"
@@ -91,6 +108,7 @@ export default function Share() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </label>
+
                         <div className="share__option">
                             <GifBox
                                 className="share__option__icon"
@@ -98,6 +116,7 @@ export default function Share() {
                             />
                             <span className="share__option__text">GIF</span>
                         </div>
+
                         <div className="share__option">
                             <Face
                                 className="share__option__icon"
@@ -105,6 +124,7 @@ export default function Share() {
                             />
                             <span className="share__option__text">気持ち</span>
                         </div>
+
                         <div className="share__option">
                             <Analytics
                                 className="share__option__icon"
@@ -113,6 +133,7 @@ export default function Share() {
                             <span className="share__option__text">投票</span>
                         </div>
                     </div>
+
                     <button className="share__button" type="submit">
                         投稿
                     </button>
