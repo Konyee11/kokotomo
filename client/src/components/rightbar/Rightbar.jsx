@@ -143,11 +143,13 @@ export default function Rightbar({ user }) {
             <div className="rightbar__wrapper">
                 {user ? <ProfileRightbar /> : <HomeRightbar />}
             </div>
-            <ProfileEditModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                user={user}
-            />
+            {isModalOpen && (
+                <ProfileEditModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    user={user}
+                />
+            )}
         </div>
     );
 }
