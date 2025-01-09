@@ -122,6 +122,7 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
             );
             console.log("プロフィール更新成功:", response.data);
             onClose();
+            window.location.reload();
         } catch (error) {
             console.log("プロフィールの更新に失敗しました:", error);
         }
