@@ -7,39 +7,8 @@ import { format, register } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
 
-export default function Post({ post }) {
-    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
-
-    const [like, setLike] = useState(post.likes.length);
-    const [isLiked, setIsLiked] = useState(false);
-    const [user, setUser] = useState({}); // 投稿したユーザー情報を取得
-
-    const { user: currentUser } = useContext(AuthContext); // ログインユーザー情報を取得
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await axios.get(`api/users?userId=${post.userId}`);
-
-            setUser(response.data);
-        };
-        fetchUser();
-    }, [post.userId]);
-
-    const handleLike = async () => {
-        try {
-            // いいねのAPIをたたく
-            const response = await axios.put(`api/posts/${post._id}/like`, {
-                userId: currentUser._id,
-            });
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-        setLike(isLiked ? like - 1 : like + 1);
-        setIsLiked(!isLiked);
-    };
-
-    // 日本語ロケールの定義
+// 日本語ロケール登録を専用の関数化
+const registerJaLocale = () => {
     const jaLocale = (number, index) =>
         [
             ["たった今", "すぐに"],
@@ -58,8 +27,47 @@ export default function Post({ post }) {
             ["%s年前", "%s年以内"],
         ][index];
 
-    // 日本語ロケールを登録
     register("ja", jaLocale);
+};
+
+registerJaLocale();
+
+export default function Post({ post }) {
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
+    const { user: currentUser } = useContext(AuthContext);
+
+    const [likeCount, setLikeCount] = useState(post.likes.length);
+    const [isLiked, setIsLiked] = useState(false);
+    const [user, setUser] = useState({}); // 投稿したユーザー情報
+
+    // ユーザー情報を取得
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get(
+                    `api/users?userId=${post.userId}`
+                );
+                setUser(response.data);
+            } catch (error) {
+                console.error("ユーザー情報の取得に失敗しました:", error);
+            }
+        };
+        fetchUser();
+    }, [post.userId]);
+
+    // いいねボタンの処理
+    const handleLike = async () => {
+        try {
+            await axios.put(`api/posts/${post._id}/like`, {
+                userId: currentUser._id,
+            });
+            // 成功すればローカル状態を更新
+            setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+            setIsLiked((prev) => !prev);
+        } catch (error) {
+            console.error("いいね処理に失敗しました:", error);
+        }
+    };
 
     return (
         <div className="post">
@@ -69,11 +77,11 @@ export default function Post({ post }) {
                         <Link to={`/profile/${user.username}`}>
                             <img
                                 src={
-                                    PUBLIC_FOLDER +
-                                    (user.profilePicture ||
-                                        "/person/noAvatar.png")
+                                    user.profilePicture
+                                        ? user.profilePicture
+                                        : "/images/noAvatar.png"
                                 }
-                                alt=""
+                                alt="アバター"
                                 className="post__profileimg"
                             />
                         </Link>
@@ -86,25 +94,33 @@ export default function Post({ post }) {
                         <MoreVert />
                     </div>
                 </div>
+
                 <div className="post__center">
                     <span className="post__text">{post.desc}</span>
-                    <img src={post.img} alt="" className="post__img" />
+                    {post.img && (
+                        <img
+                            src={post.img}
+                            alt="投稿画像"
+                            className="post__img"
+                        />
+                    )}
                 </div>
+
                 <div className="post__bottom">
                     <div className="post__bottom__left">
                         <img
-                            src={PUBLIC_FOLDER + "/heart.png"}
-                            alt=""
+                            src={`${PUBLIC_FOLDER}/heart.png`}
+                            alt="like icon"
                             className="post__likeIcon"
-                            onClick={() => handleLike()}
+                            onClick={handleLike}
                         />
                         <span className="post__likeCounter">
-                            {like}人がいいねを押しました
+                            {likeCount}人がいいねを押しました
                         </span>
                     </div>
                     <div className="post__bottom__right">
                         <span className="post__commentText">
-                            {post.comment}:コメント
+                            {post.comment}コメント
                         </span>
                     </div>
                 </div>
@@ -113,7 +129,7 @@ export default function Post({ post }) {
     );
 }
 
-// PropTypesを使用して型を定義
+// PropTypes
 Post.propTypes = {
     post: PropTypes.shape({
         _id: PropTypes.string.isRequired,
