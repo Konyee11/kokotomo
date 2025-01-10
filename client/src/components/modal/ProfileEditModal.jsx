@@ -60,15 +60,22 @@ const uploadImages = async (
  * プロフィール編集モーダルコンポーネント
  */
 export default function ProfileEditModal({ isOpen, onClose, user }) {
+    // 画像アップロード用のステート
     const [coverImage, setCoverImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
 
+    // 画像プレビュー用のステート
     const [coverPreview, setCoverPreview] = useState(
         user?.coverPicture || DEFAULT_COVER
     );
     const [profilePreview, setProfilePreview] = useState(
         user?.profilePicture || DEFAULT_PROFILE
     );
+
+    // ユーザー情報のステート
+    const [username, setUsername] = useState(user?.username || "");
+    const [desc, setDesc] = useState(user?.desc || "");
+    const [place, setPlace] = useState(user?.place || "");
 
     // アンマウント時にプレビューURLを解放
     useEffect(() => {
@@ -115,6 +122,9 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                 userId: user._id,
                 coverPicture: coverImageURL,
                 profilePicture: profileImageURL,
+                username: username,
+                desc: desc,
+                place: place,
             };
             const response = await axios.put(
                 `/api/users/${user._id}`,
@@ -218,6 +228,37 @@ export default function ProfileEditModal({ isOpen, onClose, user }) {
                             className="profileEditModal__profileImg__profile"
                         />
                     </div>
+                    <div className="profileEditModal__fields">
+                        {/* ユーザー名 */}
+                        <label>
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="ユーザー名"
+                                className="profileEditModal__username"
+                            />
+                        </label>
+                        {/* 自己紹介 */}
+                        <label>
+                            <textarea
+                                value={desc}
+                                onChange={(e) => setDesc(e.target.value)}
+                                placeholder="自己紹介"
+                                className="profileEditModal__desc"
+                            />
+                        </label>
+                        {/* 出身地 */}
+                        <label>
+                            <input
+                                type="text"
+                                value={place}
+                                onChange={(e) => setPlace(e.target.value)}
+                                placeholder="出身地"
+                                className="profileEditModal__place"
+                            />
+                        </label>
+                    </div>
                 </form>
             </div>
         </div>
@@ -232,6 +273,7 @@ ProfileEditModal.propTypes = {
         username: PropTypes.string,
         coverPicture: PropTypes.string,
         profilePicture: PropTypes.string,
+        desc: PropTypes.string,
         place: PropTypes.string,
     }),
 };
