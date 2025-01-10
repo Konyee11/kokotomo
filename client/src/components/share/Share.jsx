@@ -1,5 +1,5 @@
 import "./Share.scss";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { Analytics, Face, GifBox, Image } from "@mui/icons-material";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
@@ -11,7 +11,9 @@ export default function Share() {
     const { user } = useContext(AuthContext);
 
     // 投稿内容テキストのref
-    const descRef = useRef();
+    // const descRef = useRef();
+
+    const [desc, setDesc] = useState("");
 
     // 投稿するファイルを管理するstate
     const [file, setFile] = useState(null);
@@ -46,7 +48,7 @@ export default function Share() {
         // 1. 新規投稿データを作成
         const newPost = {
             userId: user._id,
-            desc: descRef.current.value,
+            desc: desc,
         };
 
         // 2. 画像がある場合はアップロード
@@ -86,7 +88,8 @@ export default function Share() {
                         type="text"
                         placeholder="今の気持ちを投稿してみよう！"
                         className="share__input"
-                        ref={descRef}
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
                     />
                 </div>
                 <hr className="share__hr" />
@@ -134,7 +137,11 @@ export default function Share() {
                         </div>
                     </div>
 
-                    <button className="share__button" type="submit">
+                    <button
+                        className="share__button"
+                        type="submit"
+                        disabled={!desc.trim()}
+                    >
                         投稿
                     </button>
                 </form>

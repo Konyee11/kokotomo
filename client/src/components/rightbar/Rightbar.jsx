@@ -78,7 +78,9 @@ export default function Rightbar({ user }) {
                 <div className="rightbar__info">
                     <div className="rightbar__info__item">
                         <span className="rightbar__info__key">出身地:</span>
-                        <span className="rightbar__info__value">東京</span>
+                        <span className="rightbar__info__value">
+                            {user.place ? user.place : "未設定"}
+                        </span>
                     </div>
                     <h4 className="rightbar__title">あなたの友達</h4>
                     <div className="rightbar__followings">
@@ -164,6 +166,7 @@ Rightbar.propTypes = {
         followers: PropTypes.array,
         followings: PropTypes.array,
         desc: PropTypes.string,
+        place: PropTypes.string,
         isAdmin: PropTypes.bool,
         createdAt: PropTypes.string,
     }),

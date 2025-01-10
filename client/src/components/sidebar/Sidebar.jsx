@@ -20,7 +20,7 @@ export default function Sidebar() {
 
     const handleLogout = () => {
         localStorage.removeItem("user");
-        window.location.reload();
+        window.location.href = "/login";
     };
 
     return (
